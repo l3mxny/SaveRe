@@ -30,6 +30,7 @@ const decodeJWT = (token: string): JWTPayload | null => {
 
 export default function ProfilePage({ onBack, onSignOut }: ProfilePageProps) {
   const router = useRouter();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [userEmail, setUserEmail] = useState<string>('placeholder@email.com');
   const [userName, setUserName] = useState<string>('User Name');
@@ -47,7 +48,7 @@ export default function ProfilePage({ onBack, onSignOut }: ProfilePageProps) {
 
       try {
         // Fetch user profile from API to get the actual username from signup
-        const response = await fetch('http://localhost:8000/api/auth/me', {
+        const response = await fetch(`${API_URL}/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -224,7 +225,7 @@ export default function ProfilePage({ onBack, onSignOut }: ProfilePageProps) {
 
     try {
       // Try to update name via API if endpoint exists
-      const response = await fetch('http://localhost:8000/api/users/me', {
+      const response = await fetch(`${API_URL}/api/users/me`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

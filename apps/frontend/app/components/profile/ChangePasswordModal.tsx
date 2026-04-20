@@ -13,6 +13,7 @@ const generateVerificationCode = (): string => {
 };
 
 export default function ChangePasswordModal({ userEmail, onClose }: ChangePasswordModalProps) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [step, setStep] = useState<'request' | 'verify' | 'newPassword'>('request');
   const [verificationCode, setVerificationCode] = useState('');
   const [generatedCode, setGeneratedCode] = useState<string | null>(null);
@@ -45,7 +46,7 @@ export default function ChangePasswordModal({ userEmail, onClose }: ChangePasswo
       // Try to request code from backend first
       let response;
       try {
-        response = await fetch('http://localhost:8000/api/auth/request-password-reset', {
+        response = await fetch(`${API_URL}/api/auth/request-password-reset`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -115,7 +116,7 @@ export default function ChangePasswordModal({ userEmail, onClose }: ChangePasswo
       // Try backend verification first
       let response;
       try {
-        response = await fetch('http://localhost:8000/api/auth/verify-password-reset-code', {
+        response = await fetch(`${API_URL}/api/auth/verify-password-reset-code`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -191,7 +192,7 @@ export default function ChangePasswordModal({ userEmail, onClose }: ChangePasswo
       // Try backend password reset first
       let response;
       try {
-        response = await fetch('http://localhost:8000/api/auth/reset-password', {
+        response = await fetch(`${API_URL}/api/auth/reset-password`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
