@@ -26,9 +26,8 @@ interface UseReceiptUploadReturn {
   resetUpload: () => void;
 }
 
-const API_BASE_URL = 'http://localhost:8000';
-
 export function useReceiptUpload(): UseReceiptUploadReturn {
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);

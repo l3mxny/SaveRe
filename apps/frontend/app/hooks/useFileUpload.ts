@@ -27,9 +27,8 @@ interface UseFileUploadReturn {
   reset: () => void;
 }
 
-const API_BASE_URL = 'http://localhost:8000';
-
 export function useFileUpload(): UseFileUploadReturn {
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [endpointType, setEndpointType] = useState<EndpointType>('receipt');
   const [extractedItems, setExtractedItems] = useState<ReceiptItem[]>([]);
