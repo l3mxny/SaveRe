@@ -1,4 +1,4 @@
-# Grocery Management
+# SaveRe
 
 A full-stack web application to help you reduce food waste — scan receipts with OCR, track expiration dates, and generate AI-powered recipes from what you have on hand.
 
