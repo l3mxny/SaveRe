@@ -15,6 +15,7 @@ type Recipe = {
 export default function RecipePage() {
   const params = useParams();
   const router = useRouter();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const id = params.id as string;
 
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -33,7 +34,7 @@ export default function RecipePage() {
           router.push('/signin');
           return;
         }
-        const res = await fetch(`http://localhost:8000/api/recipes/${id}`, {
+        const res = await fetch(`${API_URL}/api/recipes/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) {

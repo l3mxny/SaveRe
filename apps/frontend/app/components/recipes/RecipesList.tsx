@@ -14,6 +14,7 @@ type Recipe = {
 };
 
 export default function RecipesList() {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -40,7 +41,7 @@ export default function RecipesList() {
     }
 
     try {
-      const res = await fetch(`http://localhost:8000/api/recipes/${recipeId}`, {
+      const res = await fetch(`${API_URL}/api/recipes/${recipeId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -72,7 +73,7 @@ export default function RecipesList() {
           setRecipes([]);
           return;
         }
-        const res = await fetch("http://localhost:8000/api/recipes/", {
+        const res = await fetch(`${API_URL}/api/recipes/`, {
           headers: { Authorization: `Bearer ${token}` },
           signal: controller.signal,
         });
@@ -104,7 +105,7 @@ export default function RecipesList() {
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
       if (!token) throw new Error('Not authenticated');
-      const res = await fetch('http://localhost:8000/api/groceries/recipe', {
+      const res = await fetch(`${API_URL}/api/groceries/recipe`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) {
@@ -132,7 +133,7 @@ export default function RecipesList() {
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
       if (!token) throw new Error('Not authenticated');
-      const res = await fetch('http://localhost:8000/api/recipes/', {
+      const res = await fetch(`${API_URL}/api/recipes/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -166,7 +167,7 @@ export default function RecipesList() {
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
       if (!token) throw new Error('Not authenticated');
-      const res = await fetch('http://localhost:8000/api/groceries/recipe', {
+      const res = await fetch(`${API_URL}/api/groceries/recipe`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) {
