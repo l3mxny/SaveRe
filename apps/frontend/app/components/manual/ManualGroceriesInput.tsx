@@ -17,6 +17,7 @@ interface ManualGroceriesInputProps {
 // Output: calls backend, returns success popup event, closes overlay on success.
 // Errors: network errors surfaced inline.
 export default function ManualGroceriesInput({ onClose }: ManualGroceriesInputProps) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [rows, setRows] = useState<GroceryRow[]>([
     { id: crypto.randomUUID(), name: '', count: 1 }
   ]);
@@ -51,7 +52,7 @@ export default function ManualGroceriesInput({ onClose }: ManualGroceriesInputPr
         .filter(r => r.name.trim())
         .map(r => `${r.name.trim()} x ${r.count}`)
         .join('\n');
-      const res = await fetch('http://localhost:8000/api/receipt/analyze-text', {
+      const res = await fetch(`${API_URL}/api/receipt/analyze-text`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

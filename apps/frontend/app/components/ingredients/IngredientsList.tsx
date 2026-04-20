@@ -40,6 +40,7 @@ const getExpirationDate = (item: GroceryItem): Date | null => {
 
 export default function IngredientsList({ userId, selectedWeekRange = null }: IngredientsListProps) {
   const router = useRouter();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [ingredients, setIngredients] = useState<GroceryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -55,7 +56,7 @@ export default function IngredientsList({ userId, selectedWeekRange = null }: In
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/groceries/', {
+      const response = await fetch(`${API_URL}/api/groceries/`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

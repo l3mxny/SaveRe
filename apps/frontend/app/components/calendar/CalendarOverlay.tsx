@@ -95,6 +95,7 @@ export default function CalendarOverlay({
   onViewProfile,
   profileLabel = 'Profile',
 }: CalendarOverlayProps) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [visibleMonth, setVisibleMonth] = useState(() => new Date());
   const [selectedDate, setSelectedDate] = useState(() => new Date());
   const [itemsLoading, setItemsLoading] = useState(false);
@@ -132,7 +133,7 @@ export default function CalendarOverlay({
       setItemsLoading(true);
       setItemsError(null);
       try {
-        const response = await fetch('http://localhost:8000/api/groceries/', {
+        const response = await fetch(`${API_URL}/api/groceries/`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',

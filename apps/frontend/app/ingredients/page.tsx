@@ -47,6 +47,7 @@ const EXPIRATION_THRESHOLDS = {
 
 export default function IngredientsPage() {
   const router = useRouter();
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [ingredients, setIngredients] = useState<GroceryItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -72,7 +73,7 @@ export default function IngredientsPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/groceries/', {
+      const response = await fetch(`${API_URL}/api/groceries/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -263,7 +264,7 @@ export default function IngredientsPage() {
     if (!ingredient) return;
 
     try {
-      const response = await fetch('http://localhost:8000/api/groceries/', {
+      const response = await fetch(`${API_URL}/api/groceries/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -304,7 +305,7 @@ export default function IngredientsPage() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/groceries/${id}?by=1`, {
+      const response = await fetch(`${API_URL}/api/groceries/${id}?by=1`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -344,7 +345,7 @@ export default function IngredientsPage() {
 
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:8000/api/groceries/${id}?by=${count}`, {
+      const response = await fetch(`${API_URL}/api/groceries/${id}?by=${count}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -394,7 +395,7 @@ export default function IngredientsPage() {
         
         const deleteAmount = deleteAmounts[id] || ingredient.count || 1;
         
-        const response = await fetch(`http://localhost:8000/api/groceries/${id}?by=${deleteAmount}`, {
+        const response = await fetch(`${API_URL}/api/groceries/${id}?by=${deleteAmount}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`,
