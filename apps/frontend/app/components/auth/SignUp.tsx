@@ -20,6 +20,7 @@ const decodeJWT = (token: string): { userId: string | null; username: string | n
 };
 
 const SignUp = ({ onSignUp }: { onSignUp: (accessToken: string, userId: string) => void }) => {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,7 +41,7 @@ const SignUp = ({ onSignUp }: { onSignUp: (accessToken: string, userId: string) 
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/api/auth/register', {
+      const response = await fetch(`${API_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +52,7 @@ const SignUp = ({ onSignUp }: { onSignUp: (accessToken: string, userId: string) 
       if (response.ok) {
         // After successful registration, automatically log the user in
         try {
-          const loginResponse = await fetch('http://localhost:8000/api/auth/login', {
+          const loginResponse = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
